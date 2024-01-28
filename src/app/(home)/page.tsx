@@ -12,6 +12,8 @@ import {
 } from '@/components/ui/dialog'
 import moment from 'moment'
 import { Promotion } from '../api/promotions/types'
+import { toast } from "sonner"
+
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
@@ -25,8 +27,19 @@ export default function Home() {
     try {
       const response = await fetch(`/api/promotions?search=${search}`)
       const data = await response.json()
+
+      if (data.length === 0) {
+        toast("a gengar pokemon has appeared 1!!", {
+          description: `gengar não conseguiu encontrar nenhuma promoção para ${search} nos últimos 5 dias...`,
+        })
+        setIsLoading(false)
+        setIsModalOpen(false)
+        setSearch('')
+        return
+      }
+
       setData(data)
-      setIsModalOpen(true)
+      setIsModalOpen(data)
       setIsLoading(false)
     } catch (error) {
       console.log(error)
@@ -56,7 +69,8 @@ export default function Home() {
         '<span class="text-green-400 font-medium" >$1$2$3$4</span >',
       )
       .replaceAll(/(\d{1,2}x\s)/g, '<span class="text-yellow-400" >$1</span >')
-      .replaceAll(/(juros)/g, '<span class="text-red-400" >$1</span >')
+      .replaceAll(/(sem juros)/g, '<span class="text-pink-400" >$1</span >')
+      .replaceAll(/(cupom)/gi, '<span class="text-blue-400 font-medium uppercase">$1</span >')
   }
 
   return (
@@ -69,7 +83,6 @@ export default function Home() {
           <div className="flex items-center w-full h-full gap-4 bg-zinc-900 px-5 py-4 ring-zinc-700 rounded-lg text-zinc-200">
             <Search className="w-5 h-5 md:h-8 md:w-8 text-zinc-500" />
             <input
-              autoFocus
               value={search}
               onChange={(event) =>
                 setSearch(
@@ -119,7 +132,6 @@ export default function Home() {
                 className="group flex flex-col justify-around break-words max-w-[200px] md:max-w-[300px] w-full border border-zinc-900 m-2 rounded-sm overflow-scroll p-4 text-wrap"
               >
                 <span
-
                   className="whitespace-pre-line text-xs lg:text-md"
                   dangerouslySetInnerHTML={{
                     __html: insertTagAAroundUrl(promotion.message),
@@ -157,7 +169,7 @@ export default function Home() {
             asChild
             onClick={handleClose}
           >
-            <button className="bg-zinc-800 w-[180px] h-[20px] sm:w-[300px] sm:h-[40px] px-5 py-4 rounded-lg hover:bg-zinc-900 duration-200 text-lg text-zinc-400">
+            <button className="bg-zinc-800 w-[180px] h-[20px] sm:w-[190px] sm:h-[40px] px-5 py-4 rounded-lg hover:bg-zinc-900 duration-200 text-lg text-zinc-400 outline-none">
               Shadow Ball
               <Wand2
                 className={`w-6 h-6 group-hover:text-violet-500 group-disabled:text-zinc-700 `}
