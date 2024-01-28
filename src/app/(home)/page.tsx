@@ -46,7 +46,7 @@ export default function Home() {
     const [messageTitle] = message.split('\n')
 
     return message
-      .replace(messageTitle, `<span class="text-lg text-violet-400" >${messageTitle}</span>`)
+      .replace(messageTitle, `<span class="text-lg group-hover:text-violet-300 duration-300 text-violet-400" >${messageTitle}</span>`)
       .replace(
         /(https?:\/\/[^\s]+)/g,
         '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-violet-500 underline" >$1</a>',
@@ -112,11 +112,11 @@ export default function Home() {
               </span>
             </DialogTitle>
           </DialogHeader>
-          <div className="m-auto flex flex-wrap">
+          <div className="m-auto flex flex-wrap justify-center">
             {data.map((promotion) => (
               <div
                 key={promotion?.message}
-                className="flex flex-col justify-between break-words w-full max-w-[400px] border border-zinc-900 m-2 rounded-sm overflow-scroll p-7 text-wrap"
+                className="group flex flex-col justify-around break-words max-w-[300px] w-full border border-zinc-900 m-2 rounded-sm overflow-scroll p-4 text-wrap"
               >
                 <span
                   className="whitespace-pre-line"
