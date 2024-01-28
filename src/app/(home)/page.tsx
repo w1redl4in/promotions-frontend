@@ -137,7 +137,7 @@ export default function Home() {
                   </div>
                   <div className="flex gap-4">
                     {promotion?.reactions?.results?.map((reaction) => (
-                      <span className="flex gap-2" key={reaction.flags}>
+                      <span className="flex gap-2" key={reaction.reaction.emoticon}>
                         <div className="w-fit flex">
                           <span className="">{reaction.reaction.emoticon}</span>
                           <span className="text-xs font-bold text-zinc-500">

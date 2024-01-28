@@ -7,7 +7,7 @@ export interface Promotion {
       reaction: {
         emoticon: string
       }
+      count: number
     }[]
-    count: number
-  }[]
+  }
 }
