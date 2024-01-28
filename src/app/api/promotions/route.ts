@@ -9,6 +9,8 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
   const search = searchParams.get('search')
 
+  console.info(`buscando por promoções de ${search} em ${bots}`)
+
   if (!search) {
     return Response.json({
       error: 'Missing search param',
