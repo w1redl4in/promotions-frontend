@@ -64,10 +64,10 @@ export default function Home() {
       <div className="flex h-full items-start justify-center py-9">
         <form
           onSubmit={handleSubmit}
-          className="flex w-[600px] flex-col items-center gap-3  "
+          className="flex w-full max-w-[300px] sm:max-w-[400px] flex-col items-center gap-3  "
         >
           <div className="flex items-center w-full h-full gap-4 bg-zinc-900 px-5 py-4 ring-zinc-700 rounded-lg text-zinc-200">
-            <Search className="w-10 h-10 text-zinc-500" />
+            <Search className="w-5 h-5 md:h-8 md:w-8 text-zinc-500" />
             <input
               autoFocus
               value={search}
@@ -79,19 +79,19 @@ export default function Home() {
               }
               type="text"
               placeholder="O que o gengar vai te trazer hoje?"
-              className="flex-1 bg-transparent text-2xl outline-none placeholder:text-zinc-500"
+              className="flex-1 bg-transparent text-xs sm:text-sm md:text-md lg:text-lg outline-none placeholder:text-zinc-500"
             />
           </div>
           <button
             type="submit"
-            className={`${isLoading && 'flex-col'} group flex items-center justify-center gap-3 w-[300px] bg-zinc-800 px-5 py-4 rounded-lg hover:bg-zinc-900 duration-200 text-2xl text-zinc-400 disabled:bg-zinc-900 disabled:text-zinc-700 disabled:cursor-not-allowed disabled:scale-100 hover:scale-105`}
+            className={`${isLoading && 'flex-col'} group flex items-center justify-center gap-2 w-full max-w-[300px] sm:max-w-[400px] bg-zinc-800 px-5 py-4 rounded-lg hover:bg-zinc-900 duration-200 text-md text-zinc-400 disabled:bg-zinc-900 disabled:text-zinc-700 disabled:cursor-not-allowed disabled:scale-100 hover:scale-105`}
             disabled={search === ''}
           >
             {isLoading
               ? 'A busca pode demorar um pouco... já caçou o seu gengar shiny hj?'
               : 'Curse'}
             <Shell
-              className={`w-8 h-8 group-hover:text-violet-500 group-disabled:text-zinc-700 duration-200 ${isLoading && 'animate-spin text-violet-500'}`}
+              className={`w-5 h-5 md:h-8 md:w-8 group-hover:text-violet-500 group-disabled:text-zinc-700 duration-200 ${isLoading && 'animate-spin text-violet-500'}`}
             />
           </button>
         </form>
@@ -156,7 +156,7 @@ export default function Home() {
             asChild
             onClick={handleClose}
           >
-            <button className="bg-zinc-800 px-5 py-4 rounded-lg hover:bg-zinc-900 duration-200 text-lg text-zinc-400">
+            <button className="bg-zinc-800 w-[180px] h-[20px] sm:w-[300px] sm:h-[40px] px-5 py-4 rounded-lg hover:bg-zinc-900 duration-200 text-lg text-zinc-400">
               Shadow Ball
               <Wand2
                 className={`w-6 h-6 group-hover:text-violet-500 group-disabled:text-zinc-700 `}
