@@ -35,6 +35,8 @@ export async function GET(request: NextRequest) {
         date: promotion.date,
         views: promotion.views,
         reactions: promotion.reactions,
+        media: promotion.media,
+        entities: promotion.entities,
       })),
     ] as Promotion[]
 
