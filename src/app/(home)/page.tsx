@@ -69,6 +69,7 @@ export default function Home() {
           <div className="flex items-center w-full h-full gap-4 bg-zinc-900 px-5 py-4 ring-zinc-700 rounded-lg text-zinc-200">
             <Search className="w-10 h-10 text-zinc-500" />
             <input
+              autoFocus
               value={search}
               onChange={(event) =>
                 setSearch(
