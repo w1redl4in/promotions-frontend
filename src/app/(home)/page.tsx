@@ -46,7 +46,7 @@ export default function Home() {
     const [messageTitle] = message.split('\n')
 
     return message
-      .replace(messageTitle, `<span class="text-lg group-hover:text-violet-300 duration-300 text-violet-400" >${messageTitle}</span>`)
+      .replace(messageTitle, `<span class="text-sm lg:text-lg group-hover:text-violet-300 duration-300 text-violet-400" >${messageTitle}</span>`)
       .replace(
         /(https?:\/\/[^\s]+)/g,
         '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-violet-500 underline" >$1</a>',
@@ -116,21 +116,22 @@ export default function Home() {
             {data.map((promotion) => (
               <div
                 key={promotion?.message}
-                className="group flex flex-col justify-around break-words max-w-[300px] w-full border border-zinc-900 m-2 rounded-sm overflow-scroll p-4 text-wrap"
+                className="group flex flex-col justify-around break-words max-w-[200px] md:max-w-[300px] w-full border border-zinc-900 m-2 rounded-sm overflow-scroll p-4 text-wrap"
               >
                 <span
-                  className="whitespace-pre-line"
+
+                  className="whitespace-pre-line text-xs lg:text-md"
                   dangerouslySetInnerHTML={{
                     __html: insertTagAAroundUrl(promotion.message),
                   }}
                 />
                 <div className="flex flex-col gap-4 mt-4 font-normal">
-                  <div className="flex gap-4">
-                    <span className="flex gap-2">
+                  <div className="flex flex-col md:flex-row gap-4">
+                    <span className="flex gap-4">
                       <Eye className="w-6 h-6 text-violet-500" />
                       {promotion.views.toLocaleString('pt-br')}
                     </span>
-                    <span className="flex gap-2">
+                    <span className="flex gap-4">
                       <Calendar className="w-6 h-6 text-violet-500" />
                       {moment.unix(promotion.date).format('DD/MM/YYYY - HH:mm')}
                     </span>
