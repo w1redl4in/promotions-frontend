@@ -8,7 +8,8 @@ const inter = Rubik({ subsets: ['latin'], weight: ['400', '700', '900'] })
 export const metadata: Metadata = {
   title: 'gengar.',
   description: 'buscamos promoções para você em troca do TM Shadow Ball.',
-  viewport: 'maximum-scale=1, initial-scale=1',
+  viewport:
+    'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0',
 }
 
 export default function RootLayout({
