@@ -55,10 +55,12 @@ export default function Home() {
     setIsLoading(false)
   }
 
-  function insertTagAAroundUrl(message: string) {
+  function insertTagAAroundUrl(message: string, entities?: any[]) {
     const [messageTitle] = message.split('\n')
 
-    return message
+    const urls = entities?.filter((entity) => entity.url)
+
+    const newMessage = message
       .replace(messageTitle, `<span class="text-sm lg:text-lg group-hover:text-violet-300 duration-300 text-violet-400" >${messageTitle}</span>`)
       .replace(
         /(https?:\/\/[^\s]+)/g,
@@ -71,6 +73,13 @@ export default function Home() {
       .replaceAll(/(\d{1,2}x\s)/g, '<span class="text-yellow-400" >$1</span >')
       .replaceAll(/(sem juros)/g, '<span class="text-pink-400" >$1</span >')
       .replaceAll(/(cupom)/gi, '<span class="text-blue-400 font-medium uppercase">$1</span >')
+
+
+    if (urls && urls.length > 0) {
+      return newMessage.replace(/(>>\s*(.+?)\s*<<)/gi, `<a href="${urls[0].url}" target="_blank" rel="noopener noreferrer" class="text-violet-500 underline" >$1</a>`)
+    }
+
+    return newMessage
   }
 
   return (
@@ -134,7 +143,7 @@ export default function Home() {
                 <span
                   className="whitespace-pre-line text-xs lg:text-md"
                   dangerouslySetInnerHTML={{
-                    __html: insertTagAAroundUrl(promotion.message),
+                    __html: insertTagAAroundUrl(promotion.message, promotion.entities),
                   }}
                 />
                 <div className="flex flex-col gap-4 mt-4 font-normal">
