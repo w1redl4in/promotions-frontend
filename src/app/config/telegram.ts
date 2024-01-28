@@ -1,33 +1,19 @@
-import { TelegramClient, Api } from 'telegram'
+import { TelegramClient } from 'telegram'
 import { StringSession } from 'telegram/sessions/index.js'
 import input from 'input'
+import { env } from './env'
 
-export const bots = [
-  'promocasinha',
-  'escolhasegura',
-  'promosdetudo',
-  'promoloucas',
-  'promachao',
-  'PromocoesGPU',
-  'pcdofafapromo',
-  'pcbuildwizard',
-  'grupodosbets',
-  'EconoMister',
-  'pcgamerbarato',
-  'gpubipolar',
-  'gpubipolar_monitores',
-]
-
-const apiId = 23056821
-const apiHash = 'db05b4762c0bb199cfa00b1bd54d47f2'
-const stringSession = new StringSession(
-  '1AQAOMTQ5LjE1NC4xNzUuNTEBuyu4y8rvpcoZmB67Mxrorhd+Bj8dZq8WdPlxgTFfj3AwNQnYifYsVHTbdaLAHRI9KlbosurOWlo7+2UukqknjLSNFkgcJDaUbJ6aXaoPQAA5Ki2vX+lVCiHNxgpEKCIoJx/jKf4KMoqHjZWSiPbA+DHZE5Hg6NBFmtaGN4qr+bwl7PeQBlIjRbKczju/2ruL6c+q+DafKsmsSjwFRQ6Q8QO5x4yj7ZP7xuGOqHRTdlAzwAXyWw2WCQOFHhioYGX6Ee5ykWDUzridIHANzB3vrIqqmEVeX737QTu9HCBqy8sWef5cSOA+SRhAliwJfrhmqu2mPeZU44ixp+Fh+BtKM4k=',
-)
+const stringSession = new StringSession(env.NEXT_PUBLIC_STRING_SESSION)
 
 export async function getTelegramClient() {
-  const client = new TelegramClient(stringSession, apiId, apiHash, {
-    connectionRetries: 5,
-  })
+  const client = new TelegramClient(
+    stringSession,
+    Number(env.NEXT_PUBLIC_API_ID),
+    env.NEXT_PUBLIC_API_HASH,
+    {
+      connectionRetries: 5,
+    },
+  )
 
   await client.start({
     phoneNumber: async () => await input.text('number ?'),
