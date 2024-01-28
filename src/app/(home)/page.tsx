@@ -101,7 +101,7 @@ export default function Home() {
               }
               type="text"
               placeholder="O que o gengar vai te trazer hoje?"
-              className="flex-1 bg-transparent text-xs sm:text-sm md:text-md lg:text-lg outline-none placeholder:text-zinc-500"
+              className="flex-1 bg-transparent text-base sm:text-base md:text-base lg:text-lg outline-none placeholder:text-zinc-500"
             />
           </div>
           <button
