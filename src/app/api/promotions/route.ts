@@ -1,9 +1,11 @@
-import { bots, getTelegramClient } from '@/app/config/telegram'
+import { getTelegramClient } from '@/app/config/telegram'
 import { findPromotions } from '@/app/services/telegram'
 import { NextRequest } from 'next/server'
 import { Promotion } from './types'
+import { env } from '@/app/config/env'
 
 export async function GET(request: NextRequest) {
+  const bots = env.NEXT_PUBLIC_BOTS_TELEGRAM.split(',')
   const searchParams = request.nextUrl.searchParams
   const search = searchParams.get('search')
 
