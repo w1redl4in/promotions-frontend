@@ -166,7 +166,7 @@ export default function Home() {
             asChild
             onClick={handleClose}
           >
-            <button className="bg-zinc-200 dark:bg-zinc-800 w-[180px] h-[20px] sm:w-[190px] sm:h-[40px] px-5 py-4 rounded-lg hover:bg-zinc-300 dark:hover:bg-zinc-900 duration-200 text-sm lg:text-lg text-zinc-400 outline-none">
+            <button className="bg-zinc-200 dark:bg-zinc-800 w-[180px] h-[20px] sm:w-[190px] sm:h-[40px] px-5 py-4 rounded-lg hover:bg-zinc-300 dark:hover:bg-zinc-900 duration-200 text-sm lg:text-lg text-zinc-700 border border-zinc-400 dark:text-zinc-400 outline-none">
               Shadow Ball
               <Wand2
                 className={`w-6 h-6 group-hover:text-pink-500 dark:group-hover:text-violet-500 group-disabled:text-zinc-700 `}
