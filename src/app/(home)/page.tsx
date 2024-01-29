@@ -2,7 +2,6 @@
 'use client'
 
 import { Calendar, Eye, HandMetal, Search, SearchCheck, Shell, Wand2 } from 'lucide-react'
-import { FormEvent, useEffect, useRef, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -10,57 +9,15 @@ import {
   DialogTitle,
   DialogClose,
 } from '@/components/ui/dialog'
+import { usePromotions } from '../hooks/use-promotions'
 import moment from 'moment'
 import 'moment/locale/pt-br'
-import { Promotion } from '../api/promotions/types'
-import { toast } from "sonner"
 
 moment.locale('pt-br')
 
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [search, setSearch] = useState('')
-  const [data, setData] = useState<Promotion[]>([])
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    setIsLoading(true)
-    event.preventDefault()
-    try {
-      const response = await fetch(`/api/promotions?search=${search}`)
-      const data = await response.json()
-
-      if (data.length === 0) {
-        toast("a gengar pokemon has appeared 1!!", {
-          description: `gengar não conseguiu encontrar nenhuma promoção para ${search} nos últimos 5 dias...`,
-        })
-        setIsLoading(false)
-        setIsModalOpen(false)
-        setSearch('')
-        inputRef?.current?.focus()
-        return
-      }
-
-      setData(data)
-      setIsModalOpen(data)
-      setIsLoading(false)
-      inputRef?.current?.focus()
-    } catch (error) {
-      console.log(error)
-      setIsLoading(false)
-      setIsModalOpen(false)
-      inputRef?.current?.focus()
-    }
-  }
-
-  function handleClose() {
-    setIsModalOpen(false)
-    setData([])
-    setSearch('')
-    setIsLoading(false)
-  }
+  const { data, handleClose, handleSubmit, inputRef, isLoading, isModalOpen, search, setSearch } = usePromotions()
 
   function insertTagAAroundUrl(message: string, entities?: any[]) {
     const [messageTitle] = message.split('\n')
@@ -89,9 +46,7 @@ export default function Home() {
     return newMessage
   }
 
-  useEffect(() => {
-    inputRef?.current?.focus()
-  }, [isModalOpen])
+
 
   return (
     <main>
