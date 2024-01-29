@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 'use client'
 
-import { Calendar, Eye, Search, SearchCheck, Shell, Wand2 } from 'lucide-react'
+import { Calendar, Eye, HandMetal, Search, SearchCheck, Shell, Wand2 } from 'lucide-react'
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import {
   Dialog,
@@ -78,8 +78,8 @@ export default function Home() {
         '<span class="text-green-400 font-medium" >$1$2$3$4</span >',
       )
       .replaceAll(/(\d{1,2}x\s)/g, '<span class="text-yellow-400" >$1</span >')
-      .replaceAll(/(sem juros)/g, '<span class="text-pink-400" >$1</span >')
-      .replaceAll(/(cupom)/gi, '<span class="text-blue-400 font-medium uppercase">$1</span >')
+      .replaceAll(/(sem juros)/g, '<span class="text-pink-400 text-sm lg:text-md underline" >$1</span >')
+      .replaceAll(/(cupom)/gi, '<span class="text-blue-400 font-normal uppercase">$1</span >')
 
 
     if (urls && urls.length > 0) {
@@ -101,7 +101,7 @@ export default function Home() {
           className="flex w-full max-w-[300px] sm:max-w-[400px] flex-col items-center gap-3  "
         >
           <div className="flex items-center w-full h-full gap-4 bg-zinc-900 px-5 py-4 ring-zinc-700 rounded-lg text-zinc-200">
-            <Search className="w-5 h-5 md:h-8 md:w-8 text-zinc-500" />
+            <Search className="w-5 h-5 md:h-6 md:w-6 text-zinc-500" />
             <input
               ref={inputRef}
               autoFocus
@@ -113,7 +113,7 @@ export default function Home() {
                 )
               }
               type="text"
-              placeholder="O que o gengar vai te trazer hoje?"
+              placeholder="Sabia que o gengar já foi um humano?"
               className="flex-1 bg-transparent text-base sm:text-base md:text-base lg:text-lg outline-none placeholder:text-zinc-500"
             />
           </div>
@@ -126,7 +126,7 @@ export default function Home() {
               ? 'A busca pode demorar um pouco... já caçou o seu gengar shiny hj?'
               : 'Curse'}
             <Shell
-              className={`w-5 h-5 md:h-8 md:w-8 group-hover:text-violet-500 group-disabled:text-zinc-700 duration-200 ${isLoading && 'animate-spin text-violet-500'}`}
+              className={`w-5 h-5 md:h-8 md:w-8 group-hover:text-violet-500 group-disabled:text-zinc-700  ${isLoading && 'animate-spin text-violet-500'} duration-600`}
             />
           </button>
         </form>
@@ -151,7 +151,7 @@ export default function Home() {
             {data.map((promotion) => (
               <div
                 key={promotion?.message}
-                className="group flex flex-col justify-around break-words max-w-[200px] md:max-w-[300px] w-full border border-zinc-900 m-2 rounded-sm overflow-scroll p-4 text-wrap"
+                className="group flex flex-col justify-around break-words max-w-[200px] md:max-w-[300px] w-full border border-zinc-900 m-2 rounded-sm overflow-scroll p-4 text-wrap hover:border-zinc-800 duration-100"
               >
                 <span
                   className="whitespace-pre-line text-xs lg:text-md"
@@ -175,17 +175,32 @@ export default function Home() {
                       </span>
                     </span>
                   </div>
-                  <div className="flex gap-4">
-                    {promotion?.reactions?.results?.map((reaction) => (
-                      <span className="flex gap-2" key={reaction.reaction.emoticon}>
-                        <div className="w-fit flex">
-                          <span className="">{reaction.reaction.emoticon}</span>
-                          <span className="text-xs font-bold text-zinc-500">
-                            {reaction.count}
-                          </span>
-                        </div>
-                      </span>
-                    ))}
+                  <div className="flex flex-col gap-2">
+                    {promotion?.reactions?.results?.length > 0 && (
+
+                      <div className='flex items-center gap-2'>
+
+                        <HandMetal className="w-6 h-6 text-violet-500" />
+                        <span className='text-xs lg:text-md'>
+
+                          reações da galera
+                        </span>
+                      </div>
+                    )}
+
+                    <div className='flex gap-2 ml-8'>
+
+                      {promotion?.reactions?.results?.map((reaction) => (
+                        <span className="flex gap-2" key={reaction.reaction.emoticon}>
+                          <div className="w-fit flex">
+                            <span className="">{reaction.reaction.emoticon}</span>
+                            <span className="text-xs font-bold text-zinc-500">
+                              {reaction.count}
+                            </span>
+                          </div>
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -196,7 +211,7 @@ export default function Home() {
             asChild
             onClick={handleClose}
           >
-            <button className="bg-zinc-800 w-[180px] h-[20px] sm:w-[190px] sm:h-[40px] px-5 py-4 rounded-lg hover:bg-zinc-900 duration-200 text-lg text-zinc-400 outline-none">
+            <button className="bg-zinc-800 w-[180px] h-[20px] sm:w-[190px] sm:h-[40px] px-5 py-4 rounded-lg hover:bg-zinc-900 duration-200 text-sm lg:text-lg text-zinc-400 outline-none">
               Shadow Ball
               <Wand2
                 className={`w-6 h-6 group-hover:text-violet-500 group-disabled:text-zinc-700 `}
