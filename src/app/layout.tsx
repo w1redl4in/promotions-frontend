@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Rubik } from 'next/font/google'
 import './globals.css'
 import { Toaster } from '@/components/ui/sonner'
+import { Analytics } from '@vercel/analytics/react'
 
 const inter = Rubik({ subsets: ['latin'], weight: ['400', '700', '900'] })
 
@@ -21,6 +22,7 @@ export default function RootLayout({
     <html className={inter.className} lang="pt">
       <Toaster />
       <body>{children}</body>
+      <Analytics />
     </html>
   )
 }
