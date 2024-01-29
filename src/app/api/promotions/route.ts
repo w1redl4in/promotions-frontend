@@ -39,23 +39,13 @@ export async function GET(request: NextRequest) {
         entities: promotion.entities,
       })),
     ] as Promotion[]
-
-    // promotions = [
-    //   ...promotions,
-    //   response.messages.flatMap((possiblePromo) => ({
-    //     message: possiblePromo.message,
-    //     date: possiblePromo.date,
-    //     views: possiblePromo.views,
-    //     reactions: {
-    //       results: possiblePromo.reactions?.results,
-    //     },
-    //   })),
-    // ]
   }
 
   const removingUndefinedValues = promotions
     ?.filter((message) => message)
     .flat()
 
-  return Response.json(removingUndefinedValues)
+  const orderingByDate = removingUndefinedValues.sort((a, b) => b.date - a.date)
+
+  return Response.json(orderingByDate)
 }
