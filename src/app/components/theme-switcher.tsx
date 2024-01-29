@@ -3,7 +3,6 @@
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import { MoonStar, Sun } from 'lucide-react'
 export function ThemeSwitcher() {
   const [mounted, setMounted] = useState(false)
   const { setTheme, resolvedTheme } = useTheme()
@@ -13,10 +12,10 @@ export function ThemeSwitcher() {
   if (!mounted)
     return (
       <Image
-        src="data:image/svg+xml;base64,PHN2ZyBzdHJva2U9IiNGRkZGRkYiIGZpbGw9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBoZWlnaHQ9IjIwMHB4IiB3aWR0aD0iMjAwcHgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiB4PSIyIiB5PSIyIiBmaWxsPSJub25lIiBzdHJva2Utd2lkdGg9IjIiIHJ4PSIyIj48L3JlY3Q+PC9zdmc+Cg=="
-        width={36}
-        height={36}
-        sizes="36x36"
+        src="/gengar.png"
+        width={50}
+        height={50}
+        sizes="50x50"
         alt="Loading Light/Dark Toggle"
         priority={false}
         title="Loading Light/Dark Toggle"
@@ -25,8 +24,15 @@ export function ThemeSwitcher() {
 
   if (resolvedTheme === 'dark') {
     return (
-      <Sun
-        className="cursor-pointer hover:scale-105 duration-200"
+      <Image
+        width={80}
+        height={80}
+        alt="shiny gengar"
+        style={{
+          filter: 'drop-shadow(0 0 3px crimson)',
+        }}
+        src="/gengar-shiny.png"
+        className="w-20 h-20 cursor-pointer hover:scale-105 duration-200"
         onClick={() => setTheme('light')}
       />
     )
@@ -34,8 +40,15 @@ export function ThemeSwitcher() {
 
   if (resolvedTheme === 'light') {
     return (
-      <MoonStar
-        className="cursor-pointer hover:scale-105 duration-200"
+      <Image
+        width={80}
+        height={80}
+        alt="normal gengar"
+        style={{
+          filter: 'drop-shadow(0 0 3px #f472b6)',
+        }}
+        src="/gengar.png"
+        className="w-20 h-20 cursor-pointer hover:scale-105 duration-200"
         onClick={() => setTheme('dark')}
       />
     )
