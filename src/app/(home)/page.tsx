@@ -11,8 +11,11 @@ import {
   DialogClose,
 } from '@/components/ui/dialog'
 import moment from 'moment'
+import 'moment/locale/pt-br'
 import { Promotion } from '../api/promotions/types'
 import { toast } from "sonner"
+
+moment.locale('pt-br')
 
 
 export default function Home() {
@@ -147,14 +150,19 @@ export default function Home() {
                   }}
                 />
                 <div className="flex flex-col gap-4 mt-4 font-normal">
-                  <div className="flex flex-col md:flex-row gap-4">
-                    <span className="flex gap-4">
+                  <div className="flex flex-col justify-center gap-4">
+                    <span className="flex items-center gap-1">
                       <Eye className="w-6 h-6 text-violet-500" />
-                      {promotion.views.toLocaleString('pt-br')}
+                      <span className='text-xs lg:text-md'>
+                        {promotion.views.toLocaleString('pt-br')} pessoas já viram essa promoção
+                      </span>
                     </span>
-                    <span className="flex gap-4">
+                    <span className="flex gap-1 items-center">
                       <Calendar className="w-6 h-6 text-violet-500" />
-                      {moment.unix(promotion.date).format('DD/MM/YYYY - HH:mm')}
+                      <span className='text-xs lg:text-md'>
+                        {moment.unix(promotion.date).format('DD/MM/YYYY - HH:mm - ')}
+                        {moment.unix(promotion.date).fromNow()}
+                      </span>
                     </span>
                   </div>
                   <div className="flex gap-4">
