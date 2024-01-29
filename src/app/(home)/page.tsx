@@ -2,7 +2,7 @@
 'use client'
 
 import { Calendar, Eye, Search, SearchCheck, Shell, Wand2 } from 'lucide-react'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useRef, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -23,6 +23,7 @@ export default function Home() {
   const [search, setSearch] = useState('')
   const [data, setData] = useState<Promotion[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     setIsLoading(true)
@@ -38,16 +39,19 @@ export default function Home() {
         setIsLoading(false)
         setIsModalOpen(false)
         setSearch('')
+        inputRef?.current?.focus()
         return
       }
 
       setData(data)
       setIsModalOpen(data)
       setIsLoading(false)
+      inputRef?.current?.focus()
     } catch (error) {
       console.log(error)
       setIsLoading(false)
       setIsModalOpen(false)
+      inputRef?.current?.focus()
     }
   }
 
@@ -85,6 +89,10 @@ export default function Home() {
     return newMessage
   }
 
+  useEffect(() => {
+    inputRef?.current?.focus()
+  }, [isModalOpen])
+
   return (
     <main>
       <div className="flex h-full items-start justify-center py-9">
@@ -95,6 +103,8 @@ export default function Home() {
           <div className="flex items-center w-full h-full gap-4 bg-zinc-900 px-5 py-4 ring-zinc-700 rounded-lg text-zinc-200">
             <Search className="w-5 h-5 md:h-8 md:w-8 text-zinc-500" />
             <input
+              ref={inputRef}
+              autoFocus
               value={search}
               onChange={(event) =>
                 setSearch(
