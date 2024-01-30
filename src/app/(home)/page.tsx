@@ -88,7 +88,7 @@ export default function Home() {
       </div>
 
       <Dialog open={isModalOpen}>
-        <DialogContent className="bg-zinc-100 dark:bg-zinc-950 text-zinc-600 dark:text-zinc-500 border-zinc-50 dark:border-zinc-900 h-3/5 overflow-scroll">
+        <DialogContent className="bg-zinc-100 dark:bg-zinc-950 text-zinc-600 dark:text-zinc-500 border-zinc-50 dark:border-zinc-900 h-3/5 overflow-y-scroll">
           <DialogHeader>
             <DialogTitle className="text-center mb-2 flex flex-col gap-4">
               <span className="font-medium">
@@ -106,7 +106,7 @@ export default function Home() {
             {data.map((promotion) => (
               <div
                 key={promotion?.message}
-                className="group flex flex-col justify-around break-words max-w-[200px] md:max-w-[300px] w-full border border-zinc-300 dark:border-zinc-900 m-2 rounded-sm overflow-scroll p-4 text-wrap hover:border-zinc-400 dark:hover:border-zinc-800 duration-100"
+                className="group flex flex-col justify-around break-words max-w-[200px] md:max-w-[300px] w-full border border-zinc-300 dark:border-zinc-900 m-2 rounded-sm p-4 text-wrap hover:border-zinc-400 dark:hover:border-zinc-800 duration-100"
               >
                 <span
                   className="whitespace-pre-line text-xs lg:text-md"
