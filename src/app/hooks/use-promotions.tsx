@@ -50,6 +50,21 @@ export function usePromotions() {
     inputRef?.current?.focus()
   }, [isModalOpen])
 
+  useEffect(() => {
+    const keyDownHandler = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isModalOpen) {
+        event.preventDefault()
+        setIsModalOpen(false)
+      }
+    }
+
+    document.addEventListener('keydown', keyDownHandler)
+
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler)
+    }
+  }, [isModalOpen])
+
   return {
     isLoading,
     search,
