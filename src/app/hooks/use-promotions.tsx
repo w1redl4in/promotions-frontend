@@ -54,6 +54,7 @@ export function usePromotions() {
     const keyDownHandler = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && isModalOpen) {
         event.preventDefault()
+        setSearch('')
         setIsModalOpen(false)
       }
     }
