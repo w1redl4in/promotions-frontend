@@ -60,6 +60,13 @@ export default function Home() {
 
     const normalUrl = promotion.message.match(/(https?:\/\/[^\s]+)/g)
 
+    if (Array.isArray(normalUrl)) {
+      navigator.clipboard.writeText(normalUrl[0])
+      return toast('a gengar pokemon has appeared 1!!', {
+        description: `gengar copiou o link para o seu clipboard com sucesso, sabe usar o CTRL + V né?`,
+      })
+    }
+
     navigator.clipboard.writeText(String(normalUrl))
 
     return toast('a gengar pokemon has appeared 1!!', {
