@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 'use client'
 
-import { Calendar, Eye, HandMetal, Search, SearchCheck, Shell, Wand2 } from 'lucide-react'
+import { Calendar, Copy, Eye, HandMetal, Search, SearchCheck, Shell, Wand2 } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
@@ -9,9 +9,11 @@ import {
   DialogTitle,
   DialogClose,
 } from '@/components/ui/dialog'
+import { Promotion } from '../api/promotions/types'
 import { usePromotions } from '../hooks/use-promotions'
 import moment from 'moment'
 import 'moment/locale/pt-br'
+import { toast } from 'sonner'
 
 moment.locale('pt-br')
 
@@ -46,7 +48,24 @@ export default function Home() {
     return newMessage
   }
 
+  function handleCopy(promotion: Promotion) {
+    const urls = promotion.entities?.filter((entity) => entity.url)
 
+    if (urls && urls.length > 0) {
+      navigator.clipboard.writeText(String(urls[0].url))
+      return toast('a gengar pokemon has appeared 1!!', {
+        description: `gengar copiou o link para o seu clipboard com sucesso, sabe usar o CTRL + V né?`,
+      })
+    }
+
+    const normalUrl = promotion.message.match(/(https?:\/\/[^\s]+)/g)
+
+    navigator.clipboard.writeText(String(normalUrl))
+
+    return toast('a gengar pokemon has appeared 1!!', {
+      description: `gengar copiou o link para o seu clipboard com sucesso, sabe usar o CTRL + V né?`,
+    })
+  }
 
   return (
     <main>
@@ -144,7 +163,6 @@ export default function Home() {
                     )}
 
                     <div className='flex gap-2 ml-8'>
-
                       {promotion?.reactions?.results?.map((reaction) => (
                         <span className="flex gap-2" key={reaction.reaction.emoticon}>
                           <div className="w-fit flex">
@@ -155,6 +173,11 @@ export default function Home() {
                           </div>
                         </span>
                       ))}
+                    </div>
+
+                    <div onClick={() => handleCopy(promotion)} className='flex items-center gap-2 hover:scale-105 hover:underline duration-300 cursor-pointer text-pink-500 dark:text-violet-500'>
+                      <Copy className='w-6 h-6 text-pink-500 dark:text-violet-500' />
+                      <span className='break-words text-xs'>Clique para copiar o link para o clipboard e compartilhar com a rapeize!</span>
                     </div>
                   </div>
                 </div>
