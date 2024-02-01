@@ -100,7 +100,7 @@ export default function Home() {
           </div>
           <button
             type="submit"
-            className={`${isLoading && 'flex-col'} group flex items-center justify-center gap-2 w-full max-w-[300px] sm:max-w-[400px] bg-zinc-300 dark:bg-zinc-800 px-5 py-4 rounded-lg hover:bg-zinc-300 dark:hover:bg-zinc-900 duration-200 text-md text-zinc-700 disabled:bg-zinc-200 dark:disabled:bg-zinc-900 disabled:text-zinc-400 dark:disabled:text-zinc-700 disabled:cursor-not-allowed disabled:scale-100 hover:scale-105`}
+            className={`${isLoading && 'flex-col'} group flex items-center justify-center gap-2 w-full max-w-[300px] sm:max-w-[400px] bg-zinc-300 dark:bg-zinc-900 px-5 py-4 rounded-lg hover:bg-zinc-300 dark:hover:bg-zinc-900 duration-200 text-md text-zinc-700 dark:text-zinc-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-700 disabled:cursor-not-allowed disabled:scale-100 hover:scale-105`}
             disabled={search === ''}
           >
             {isLoading
