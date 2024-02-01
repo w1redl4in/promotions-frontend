@@ -94,7 +94,7 @@ export default function Home() {
                 )
               }
               type="text"
-              placeholder="Sabia que o gengar já foi um humano?"
+              placeholder="Shadow Ball"
               className="flex-1 bg-transparent text-base sm:text-base md:text-base lg:text-lg outline-none placeholder:text-zinc-500"
             />
           </div>
