@@ -1,77 +1,108 @@
 /* eslint-disable prettier/prettier */
-'use client'
+"use client";
 
-import { Calendar, Copy, Eye, HandMetal, Search, SearchCheck, Shell, Wand2 } from 'lucide-react'
+import {
+  Calendar,
+  Copy,
+  Eye,
+  HandMetal,
+  Search,
+  SearchCheck,
+  Shell,
+  Wand2,
+} from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogClose,
-} from '@/components/ui/dialog'
-import { Promotion } from '../api/promotions/types'
-import { usePromotions } from '../hooks/use-promotions'
-import moment from 'moment'
-import 'moment/locale/pt-br'
-import { toast } from 'sonner'
+} from "@/components/ui/dialog";
+import { Promotion } from "../api/promotions/types";
+import { usePromotions } from "../hooks/use-promotions";
+import moment from "moment";
+import "moment/locale/pt-br";
+import { toast } from "sonner";
 
-moment.locale('pt-br')
-
+moment.locale("pt-br");
 
 export default function Home() {
-  const { data, handleClose, handleSubmit, inputRef, isLoading, isModalOpen, search, setSearch } = usePromotions()
+  const {
+    data,
+    handleClose,
+    handleSubmit,
+    inputRef,
+    isLoading,
+    isModalOpen,
+    search,
+    setSearch,
+  } = usePromotions();
 
   function insertTagAAroundUrl(message: string, entities?: any[]) {
-    const [messageTitle] = message.split('\n')
+    const [messageTitle] = message.split("\n");
 
-    const urls = entities?.filter((entity) => entity.url)
+    const urls = entities?.filter((entity) => entity.url);
 
     const newMessage = message
-      .replace(messageTitle, `<span class="text-sm lg:text-lg group-hover:text-pink-500 dark:group-hover:text-violet-300 duration-300 text-pink-400 dark:text-violet-400" >${messageTitle}</span>`)
+      .replace(
+        messageTitle,
+        `<span class="text-sm lg:text-lg group-hover:text-pink-500 dark:group-hover:text-violet-300 duration-300 text-pink-400 dark:text-violet-400" >${messageTitle}</span>`
+      )
       .replace(
         /(https?:\/\/[^\s]+)/g,
-        '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-pink-500 dark:text-violet-500 underline" >$1</a>',
+        '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-pink-500 dark:text-violet-500 underline" >$1</a>'
       )
       .replaceAll(
         /(R\$\s?)(\d{1,4})(\.\d{3})*(,\d{2})?/g,
-        '<span class="text-green-500 dark:text-green-400 font-medium" >$1$2$3$4</span >',
+        '<span class="text-green-500 dark:text-green-400 font-medium" >$1$2$3$4</span >'
       )
-      .replaceAll(/(\d{1,2}x\s)/g, '<span class="text-yellow-500 dark:text-yellow-400" >$1</span >')
-      .replaceAll(/(sem juros)/g, '<span class="text-violet-500 dark:text-pink-400 text-sm lg:text-md underline" >$1</span >')
-      .replaceAll(/(cupom)/gi, '<span class="text-blue-500 dark:text-blue-400 font-normal uppercase">$1</span >')
-
+      .replaceAll(
+        /(\d{1,2}x\s)/g,
+        '<span class="text-yellow-500 dark:text-yellow-400" >$1</span >'
+      )
+      .replaceAll(
+        /(sem juros)/g,
+        '<span class="text-violet-500 dark:text-pink-400 text-sm lg:text-md underline" >$1</span >'
+      )
+      .replaceAll(
+        /(cupom)/gi,
+        '<span class="text-blue-500 dark:text-blue-400 font-normal uppercase">$1</span >'
+      );
 
     if (urls && urls.length > 0) {
-      return newMessage.replace(/(>>\s*(.+?)\s*<<)/gi, `<a href="${urls[0].url}" target="_blank" rel="noopener noreferrer" class="text-pink-500 dark:text-violet-500 underline" >$1</a>`)
+      return newMessage.replace(
+        /(>>\s*(.+?)\s*<<)/gi,
+        `<a href="${urls[0].url}" target="_blank" rel="noopener noreferrer" class="text-pink-500 dark:text-violet-500 underline" >$1</a>`
+      );
     }
 
-    return newMessage
+    return newMessage;
   }
 
   function handleCopy(promotion: Promotion) {
-    const urls = promotion.entities?.filter((entity) => entity.url)
+    const urls = promotion.entities?.filter((entity) => entity.url);
 
     if (urls && urls.length > 0) {
-      navigator.clipboard.writeText(String(urls[0].url))
-      return toast('a gengar pokemon has appeared 1!!', {
+      navigator.clipboard.writeText(String(urls[0].url));
+      return toast("a gengar pokemon has appeared 1!!", {
         description: `gengar copiou o link para o seu clipboard com sucesso, sabe usar o CTRL + V né?`,
-      })
+      });
     }
 
-    const normalUrl = promotion.message.match(/(https?:\/\/[^\s]+)/g)
+    const normalUrl = promotion.message.match(/(https?:\/\/[^\s]+)/g);
 
     if (Array.isArray(normalUrl)) {
-      navigator.clipboard.writeText(normalUrl[0])
-      return toast('a gengar pokemon has appeared 1!!', {
+      navigator.clipboard.writeText(normalUrl[0]);
+      return toast("a gengar pokemon has appeared 1!!", {
         description: `gengar copiou o link para o seu clipboard com sucesso, sabe usar o CTRL + V né?`,
-      })
+      });
     }
 
-    navigator.clipboard.writeText(String(normalUrl))
+    navigator.clipboard.writeText(String(normalUrl));
 
-    return toast('a gengar pokemon has appeared 1!!', {
+    return toast("a gengar pokemon has appeared 1!!", {
       description: `gengar copiou o link para o seu clipboard com sucesso, sabe usar o CTRL + V né?`,
-    })
+    });
   }
 
   return (
@@ -90,7 +121,7 @@ export default function Home() {
               onChange={(event) =>
                 setSearch(
                   event.target.value.charAt(0).toUpperCase() +
-                  event.target.value.slice(1),
+                    event.target.value.slice(1)
                 )
               }
               type="text"
@@ -100,14 +131,14 @@ export default function Home() {
           </div>
           <button
             type="submit"
-            className={`${isLoading && 'flex-col'} group flex items-center justify-center gap-2 w-full max-w-[300px] sm:max-w-[400px] bg-zinc-300 dark:bg-zinc-900 px-5 py-4 rounded-lg hover:bg-zinc-300 dark:hover:bg-zinc-900 duration-200 text-md text-zinc-700 dark:text-zinc-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-700 disabled:cursor-not-allowed disabled:scale-100 hover:scale-105`}
-            disabled={search === ''}
+            className={`${isLoading && "flex-col"} group flex items-center justify-center gap-2 w-full max-w-[300px] sm:max-w-[400px] bg-zinc-300 dark:bg-zinc-900 px-5 py-4 rounded-lg hover:bg-zinc-300 dark:hover:bg-zinc-900 duration-200 text-md text-zinc-700 dark:text-zinc-500 disabled:bg-zinc-200 dark:disabled:bg-zinc-800 disabled:text-zinc-400 dark:disabled:text-zinc-700 disabled:cursor-not-allowed disabled:scale-100 hover:scale-105`}
+            disabled={search === ""}
           >
             {isLoading
-              ? 'A busca pode demorar um pouco... já caçou o seu gengar shiny hj?'
-              : 'Curse'}
+              ? "A busca pode demorar um pouco... já caçou o seu gengar shiny hj?"
+              : "Curse"}
             <Shell
-              className={`w-5 h-5 md:h-8 md:w-8 group-hover:text-pink-500 dark:group-hover:text-violet-500 group-disabled:text-zinc-400 dark:group-disabled:text-zinc-700  ${isLoading && 'animate-spin text-pink-500 dark:text-violet-500'} duration-600`}
+              className={`w-5 h-5 md:h-8 md:w-8 group-hover:text-pink-500 dark:group-hover:text-violet-500 group-disabled:text-zinc-400 dark:group-disabled:text-zinc-700  ${isLoading && "animate-spin text-pink-500 dark:text-violet-500"} duration-600`}
             />
           </button>
         </form>
@@ -119,7 +150,10 @@ export default function Home() {
             <DialogTitle className="text-center mb-2 flex flex-col gap-4">
               <span className="font-medium">
                 promoções coletadas pelo
-                <span className="text-pink-500 dark:text-violet-500"> gengar</span>
+                <span className="text-pink-500 dark:text-violet-500">
+                  {" "}
+                  gengar
+                </span>
               </span>
 
               <span className="flex gap-2 justify-center items-center text-pink-500 dark:text-violet-500 text-1xl">
@@ -137,43 +171,51 @@ export default function Home() {
                 <span
                   className="whitespace-pre-line text-xs lg:text-md"
                   dangerouslySetInnerHTML={{
-                    __html: insertTagAAroundUrl(promotion.message, promotion.entities),
+                    __html: insertTagAAroundUrl(
+                      promotion.message,
+                      promotion.entities
+                    ),
                   }}
                 />
                 <div className="flex flex-col gap-4 mt-4 font-normal">
                   <div className="flex flex-col justify-center gap-4">
                     <span className="flex items-center gap-1">
                       <Eye className="w-6 h-6 text-pink-500 dark:text-violet-500" />
-                      <span className='text-xs lg:text-md'>
-                        {promotion.views.toLocaleString('pt-br')} pessoas já viram essa promoção
+                      <span className="text-xs lg:text-md">
+                        {promotion?.views?.toLocaleString("pt-br")} pessoas já
+                        viram essa promoção
                       </span>
                     </span>
                     <span className="flex gap-1 items-center">
                       <Calendar className="w-6 h-6 text-pink-500 dark:text-violet-500" />
-                      <span className='text-xs lg:text-md'>
-                        {moment.unix(promotion.date).format('DD/MM/YYYY - HH:mm - ')}
+                      <span className="text-xs lg:text-md">
+                        {moment
+                          .unix(promotion.date)
+                          .format("DD/MM/YYYY - HH:mm - ")}
                         {moment.unix(promotion.date).fromNow()}
                       </span>
                     </span>
                   </div>
                   <div className="flex flex-col gap-2">
                     {promotion?.reactions?.results?.length > 0 && (
-
-                      <div className='flex items-center gap-2'>
-
+                      <div className="flex items-center gap-2">
                         <HandMetal className="w-6 h-6 text-pink-500 dark:text-violet-500" />
-                        <span className='text-xs lg:text-md'>
-
+                        <span className="text-xs lg:text-md">
                           reações da galera
                         </span>
                       </div>
                     )}
 
-                    <div className='flex gap-2 ml-8'>
+                    <div className="flex gap-2 ml-8">
                       {promotion?.reactions?.results?.map((reaction) => (
-                        <span className="flex gap-2" key={reaction.reaction.emoticon}>
+                        <span
+                          className="flex gap-2"
+                          key={reaction.reaction.emoticon}
+                        >
                           <div className="w-fit flex">
-                            <span className="">{reaction.reaction.emoticon}</span>
+                            <span className="">
+                              {reaction.reaction.emoticon}
+                            </span>
                             <span className="text-xs font-bold text-zinc-500">
                               {reaction.count}
                             </span>
@@ -182,9 +224,15 @@ export default function Home() {
                       ))}
                     </div>
 
-                    <div onClick={() => handleCopy(promotion)} className='flex items-center gap-2 hover:scale-105 hover:underline duration-300 cursor-pointer text-pink-500 dark:text-violet-500'>
-                      <Copy className='w-6 h-6 text-pink-500 dark:text-violet-500' />
-                      <span className='break-words text-xs'>Clique para copiar o link para o clipboard e compartilhar com a rapeize!</span>
+                    <div
+                      onClick={() => handleCopy(promotion)}
+                      className="flex items-center gap-2 hover:scale-105 hover:underline duration-300 cursor-pointer text-pink-500 dark:text-violet-500"
+                    >
+                      <Copy className="w-6 h-6 text-pink-500 dark:text-violet-500" />
+                      <span className="break-words text-xs">
+                        Clique para copiar o link para o clipboard e
+                        compartilhar com a rapeize!
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -206,5 +254,5 @@ export default function Home() {
         </DialogContent>
       </Dialog>
     </main>
-  )
+  );
 }
